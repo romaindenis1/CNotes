@@ -7,6 +7,7 @@ int main ()
     printf("2) List notes\n");
     printf("3) Search note\n");
     printf("4) Delete a note\n");
+    printf("5) Quit\n");
     printf("Que voulez vous faire? ");
 
     int userInput;
@@ -25,6 +26,9 @@ int main ()
             break;
         case 4:
             deleteNote();
+            break;
+        case 5:
+            exit(0);
             break;
     }
     return 0;
