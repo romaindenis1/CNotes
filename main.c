@@ -9,6 +9,7 @@ int main ()
     printf("4) Delete a note\n");
     printf("Que voulez vous faire? ");
 
+    int userInput;
     //d pour double
     scanf("%d", &userInput);
     switch (userInput)
@@ -23,33 +24,41 @@ int main ()
 
             break;
         case 4:
-
+            deleteNote();
             break;
     }
     return 0;
 }
+struct file {
+    char filename[50];
+    char extension[5];
+    char content[255];
+};
 void addNote()
 {
-    char filename[50];
-    char extension[] = ".txt";
-    char content[255];
-
+    // FOR MAKING FOLDERS LATER ON
+    // TODO
+    // mkdir("test");
+    struct file addFileStruct;
     FILE *fptr;
 
-    printf("Comment s'apelle cette note? ");    
+    strcpy(rmFileStruct.extension, ".txt");
 
+    printf("Comment s'apelle cette note? ");    
     //%s pour string
     scanf("%s", &filename);
     
-    strcat(filename, extension);
-    fptr = fopen(filename, "w");
+    strcat(addFileStruct.filename, addFileStruct.extension);
+    fptr = fopen(addFileStruct.filename, "w");
 
     printf("Que voulez vous ecrire dans cette note? "); 
-    scanf("%s", &content);
+    scanf("%49s", addFileStruct.content);
 
-    fprintf(fptr, content);
+    fprintf(fptr, addFileStruct.content);
 
     fclose(fptr);
+    system("cls");
+    main();
 }
 void listNotes()
 {
@@ -61,6 +70,7 @@ void searchNotes()
 }
 void deleteNote()
 {
+    struct file rmFileStruct;
 
     strcpy(rmFileStruct.extension, ".txt");
 
