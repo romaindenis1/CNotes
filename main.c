@@ -40,33 +40,45 @@ struct file {
 };
 void addNote()
 {
+    
     // FOR MAKING FOLDERS LATER ON
     // TODO
     // mkdir("test");
     struct file addFileStruct;
     FILE *fptr;
 
-    strcpy(rmFileStruct.extension, ".txt");
+    strcpy(addFileStruct.extension, ".txt");
 
+    
+    //Flush newline
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+
+    //Get filename
     printf("Comment s'apelle cette note? ");    
-    //%s pour string
-    scanf("%s", &filename);
+    fgets(addFileStruct.filename, sizeof(addFileStruct.filename), stdin);
+    addFileStruct.filename[strcspn(addFileStruct.filename, "\n")] = '\0';
     
     strcat(addFileStruct.filename, addFileStruct.extension);
     fptr = fopen(addFileStruct.filename, "w");
 
+    //Get content
     printf("Que voulez vous ecrire dans cette note? "); 
-    scanf("%49s", addFileStruct.content);
+    fgets(addFileStruct.content, sizeof(addFileStruct.content), stdin);
+    addFileStruct.content[strcspn(addFileStruct.content, "\n")] = '\0';
 
     fprintf(fptr, addFileStruct.content);
 
     fclose(fptr);
-    system("cls");
-    main();
+
+    reset();
 }
 void listNotes()
 {
-
+    system("dir /b");
+    //need enter confirm here
+    main();
+    return 0;
 }
 void searchNotes()
 {
@@ -78,13 +90,18 @@ void deleteNote()
 
     strcpy(rmFileStruct.extension, ".txt");
 
-    strcat(rmFileStruct.filename, rmFileStruct.extension);
+    
     printf("Comment s'apelle le fichier? ");    
 
     //%s pour string
     scanf("%49s", rmFileStruct.filename);
+    strcat(rmFileStruct.filename, rmFileStruct.extension);
     remove(rmFileStruct.filename);
 
+    reset();
+}
+void reset()
+{
     system("cls");
     main();
 }
