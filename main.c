@@ -62,4 +62,15 @@ void searchNotes()
 void deleteNote()
 {
 
+    strcpy(rmFileStruct.extension, ".txt");
+
+    strcat(rmFileStruct.filename, rmFileStruct.extension);
+    printf("Comment s'apelle le fichier? ");    
+
+    //%s pour string
+    scanf("%49s", rmFileStruct.filename);
+    remove(rmFileStruct.filename);
+
+    system("cls");
+    main();
 }
