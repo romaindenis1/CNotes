@@ -18,12 +18,10 @@ int main ()
         case 1:
             addNote();
             break;
-        case 2:
+        case 2: 
             listNotes();
             break;
         case 3:
-
-            break;
         case 4:
             deleteNote();
             break;
@@ -47,28 +45,40 @@ void addNote()
     struct file addFileStruct;
     FILE *fptr;
 
+    char folderName[50];
+    char folderPath[100];
+    char fullPath[150];
+
     strcpy(addFileStruct.extension, ".txt");
 
-    
     //Flush newline
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
 
-    //Get filename
-    printf("Comment s'apelle cette note? ");    
+    // Get folder name
+    printf("Dans quel dossier voulez-vous enregistrer la note ? ");
+    fgets(folderName, sizeof(folderName), stdin);
+    folderName[strcspn(folderName, "\n")] = '\0';
+
+    sprintf(folderPath, "%s", folderName);
+    _mkdir(folderPath);
+
+    // Get note filename
+    printf("Comment s'appelle cette note ? ");
     fgets(addFileStruct.filename, sizeof(addFileStruct.filename), stdin);
     addFileStruct.filename[strcspn(addFileStruct.filename, "\n")] = '\0';
-    
     strcat(addFileStruct.filename, addFileStruct.extension);
-    fptr = fopen(addFileStruct.filename, "w");
 
-    //Get content
-    printf("Que voulez vous ecrire dans cette note? "); 
+    // Build full path
+    sprintf(fullPath, "%s/%s", folderPath, addFileStruct.filename);
+
+    // Get content
+    printf("Que voulez-vous ecrire dans cette note ? ");
     fgets(addFileStruct.content, sizeof(addFileStruct.content), stdin);
     addFileStruct.content[strcspn(addFileStruct.content, "\n")] = '\0';
 
-    fprintf(fptr, addFileStruct.content);
-
+    fptr = fopen(fullPath, "w");
+    fprintf(fptr, "%s", addFileStruct.content);
     fclose(fptr);
 
     reset();
