@@ -31,7 +31,7 @@ void addNote() {
 
     if (_mkdir(folder) != 0) {
         if (errno != EEXIST) {
-            perror("Erreur lors de la création du dossier");
+            perror("Erreur lors de la creation du dossier");
             return;
         }
     }
@@ -59,7 +59,7 @@ void saveNoteToFile(Note *note, const char *folder) {
     }
 
     if (fprintf(fptr, "%s", note->content) < 0) {
-        perror("Erreur lors de l'écriture du fichier");
+        perror("Erreur lors de l'ecriture du fichier");
     }
 
     fclose(fptr);
@@ -75,14 +75,14 @@ void listNotes() {
 void deleteNote() {
     Note note;
     clearInputBuffer();
-    printf("Nom du fichier à supprimer: ");
+    printf("Nom du fichier a supprimer: ");
     fgets(note.filename, MAX_FILENAME, stdin);
     note.filename[strcspn(note.filename, "\n")] = '\0';
 
     strcat(note.filename, ".txt");
 
     if (remove(note.filename) == 0)
-        printf("Fichier supprimé.\n");
+        printf("Fichier supprime.\n");
     else
         printf("Erreur: fichier introuvable.\n");
 
